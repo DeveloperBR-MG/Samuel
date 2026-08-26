@@ -239,6 +239,10 @@
       transform:scale(1.12) rotate(1deg);
       filter:saturate(1.15) contrast(1.04);
     }
+    .grid-box:hover video{
+      transform:scale(1.12) rotate(1deg);
+      filter:saturate(1.15) contrast(1.04);
+    }
     .grid-box:hover .grid-shade{opacity:.95}
     .grid-box:hover .grid-content h3{transform:translateY(0)}
     .grid-box:hover .grid-arrow{
@@ -504,24 +508,21 @@
               <span class="grid-arrow">↗</span>
             </div>
           </article>
-          <div>
-            <article class="grid-box">
-                  <video width="auto" height="360" controls>
-          <source src="https://developerbr-mg.github.io/Samuel/imgs/video1.mp4" type="video/mp4">
-          Seu navegador não suporta este elemento de vídeo.
-        </video>
-              <div class="grid-shade"></div>
-              <div class="grid-content">
-                <span class="grid-number">06</span>
-                <div>
-                  <span class="grid-category">CAMPANHA</span>
-                  <h3>Impacto visual</h3>
-                </div>
-                <span class="grid-arrow">↗</span>
+          <article class="grid-box">
+            <video autoplay muted loop playsinline aria-label="Vídeo da campanha Impacto visual">
+              <source src="https://developerbr-mg.github.io/Samuel/imgs/video1.mp4" type="video/mp4">
+              Seu navegador não suporta este elemento de vídeo.
+            </video>
+            <div class="grid-shade"></div>
+            <div class="grid-content">
+              <span class="grid-number">06</span>
+              <div>
+                <span class="grid-category">CAMPANHA</span>
+                <h3>Impacto visual</h3>
               </div>
-    
-
-          </div>
+              <span class="grid-arrow">↗</span>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -576,6 +577,7 @@
     document.querySelectorAll('.grid-box').forEach(box => {
       box.addEventListener('click', () => {
         const img = box.querySelector('img');
+        if(!img) return;
         const title = box.querySelector('h3');
         const category = box.querySelector('.grid-category');
         const number = box.querySelector('.grid-number');
