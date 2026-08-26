@@ -169,6 +169,16 @@
       transition:transform 1.1s cubic-bezier(.16,1,.3,1),filter .8s;
       filter:saturate(.82);
     }
+     .grid-box video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transform:scale(1.01);
+      transition:transform 1.1s cubic-bezier(.16,1,.3,1),filter .8s;
+      filter:saturate(.82);
+    }
     .grid-shade{
       position:absolute;
       inset:0;
@@ -495,10 +505,21 @@
             </div>
           </article>
           <div>
-        <video width="auto" height="360" controls>
+            <article class="grid-box">
+                  <video width="auto" height="360" controls>
           <source src="https://developerbr-mg.github.io/Samuel/imgs/video1.mp4" type="video/mp4">
           Seu navegador não suporta este elemento de vídeo.
         </video>
+              <div class="grid-shade"></div>
+              <div class="grid-content">
+                <span class="grid-number">06</span>
+                <div>
+                  <span class="grid-category">CAMPANHA</span>
+                  <h3>Impacto visual</h3>
+                </div>
+                <span class="grid-arrow">↗</span>
+              </div>
+    
 
           </div>
         </div>
