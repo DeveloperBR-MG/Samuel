@@ -282,10 +282,18 @@
       display:block;
       animation:modalImage 8s ease-in-out infinite alternate;
     }
+    .box-modal-card video{
+      width:100%;height:100%;object-fit:contain;
+      display:none;
+      position:relative;
+      z-index:1;
+      background:#000;
+    }
     .box-modal-card:after{
       content:"";
       position:absolute;inset:0;
       background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.78));
+      pointer-events:none;
     }
     .modal-info{
       position:absolute;z-index:3;left:30px;right:30px;bottom:28px;color:white;
@@ -543,6 +551,7 @@
       <div class="box-modal-card">
         <button class="modal-close" id="modalClose" aria-label="Fechar">×</button>
         <img id="modalImage" src="" alt="">
+        <video id="modalVideo" controls playsinline></video>
         <div class="modal-info">
           <div>
             <span class="grid-category" id="modalCategory"></span>
@@ -569,6 +578,7 @@
   <script>
     const modal = document.getElementById('boxModal');
     const modalImage = document.getElementById('modalImage');
+    const modalVideo = document.getElementById('modalVideo');
     const modalTitle = document.getElementById('modalTitle');
     const modalCategory = document.getElementById('modalCategory');
     const modalNumber = document.getElementById('modalNumber');
@@ -577,13 +587,30 @@
     document.querySelectorAll('.grid-box').forEach(box => {
       box.addEventListener('click', () => {
         const img = box.querySelector('img');
-        if(!img) return;
+        const video = box.querySelector('video');
         const title = box.querySelector('h3');
         const category = box.querySelector('.grid-category');
         const number = box.querySelector('.grid-number');
 
-        modalImage.src = img.src;
-        modalImage.alt = img.alt;
+        if(video){
+          modalImage.style.display = 'none';
+          modalVideo.style.display = 'block';
+          modalVideo.src = video.querySelector('source').src;
+          modalVideo.currentTime = 0;
+          modalVideo.muted = false;
+          modalVideo.load();
+          modalVideo.play();
+        }else if(img){
+          modalVideo.pause();
+          modalVideo.removeAttribute('src');
+          modalVideo.load();
+          modalVideo.style.display = 'none';
+          modalImage.style.display = 'block';
+          modalImage.src = img.src;
+          modalImage.alt = img.alt;
+        }else{
+          return;
+        }
         modalTitle.textContent = title.textContent;
         modalCategory.textContent = category.textContent;
         modalNumber.textContent = number.textContent;
@@ -594,6 +621,7 @@
     });
 
     function closeModal(){
+      modalVideo.pause();
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden','true');
       document.body.style.overflow = '';
